@@ -1,5 +1,12 @@
 # Changelog
 
+## \[2.0.1]
+
+- [`4ccc99fa`](https://www.github.com/iotaledger/stronghold.rs/commit/4ccc99faec7000cfaefa4feab3a26d52435c3cd6) Fixed compilation for armv7-unknown-linux-gnueabihf target.
+- [`49f6fb4b`](https://www.github.com/iotaledger/stronghold.rs/commit/49f6fb4b213423a07a76a8c147a1ff97baddfaa0) Expose the runner API to allow for 3rd party procedures.
+
+  Change libsodium-sys to libsodium-sys-stable due to depreciation of the previous library.
+
 ## \[2.0.0]
 
 - [`b9ce406a`](https://www.github.com/iotaledger/stronghold.rs/commit/b9ce406a1a3396a7c8cc7cca42f2bb5c0768dde9)([#495](https://www.github.com/iotaledger/stronghold.rs/pull/495)) Stable release of 2.0.
