@@ -40,7 +40,7 @@ iota-crypto = { version = "0.23", features = [
 tempfile = "3.1.0"
 proptest = "1.0.0"
 criterion = "0.5.1"
-json = "0.12"
+jzon = "0.12.5"
 stronghold-utils = { path = "../utils", version = "1.0.0" }
 
 [[bench]]
