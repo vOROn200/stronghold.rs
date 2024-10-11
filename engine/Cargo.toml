@@ -19,7 +19,6 @@ name = "engine"
 
 [dependencies]
 thiserror = "1.0"
-anyhow = "1.0"
 dirs-next = "2.0"
 hex = "0.4.2"
 paste = "1.0.1"
