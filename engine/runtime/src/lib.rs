@@ -43,6 +43,9 @@ pub enum MemoryError {
     #[error("failed to allocate memory ({0})")]
     Allocation(String),
 
+    #[error("Failed to deallocate memory ({0})")]
+    Deallocation(String),
+
     #[error("intended operation failed: ({0})")]
     Operation(String),
 

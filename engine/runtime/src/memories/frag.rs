@@ -300,7 +300,7 @@ where
             let actual_size = std::mem::size_of::<T>() as u32;
             let actual_mapping = windows::Win32::System::Memory::CreateFileMappingW(
                 handle,
-                std::ptr::null_mut(),
+                None,
                 windows::Win32::System::Memory::PAGE_READWRITE,
                 0,
                 actual_size,
@@ -319,7 +319,7 @@ where
                 0,
                 actual_size as usize,
             );
-            let actual_mem = mem_view as *mut T;
+            let actual_mem = mem_view.Value as *mut T;
 
             if let Err(e) = last_error() {
                 return Err(e);
@@ -331,7 +331,7 @@ where
                 ptr: NonNull::new_unchecked(actual_mem),
                 strategy: FragStrategy::Map,
                 live: true,
-                info: Some((actual_mapping, mem_view)),
+                info: Some((actual_mapping, mem_view.Value)),
             });
         }
     }
@@ -424,7 +424,7 @@ where
             let actual_size = std::mem::size_of::<T>();
 
             let actual_mem = VirtualAlloc(
-                std::ptr::null_mut(),
+                None,
                 actual_size,
                 MEM_COMMIT | MEM_RESERVE,
                 PAGE_READWRITE,
@@ -469,20 +469,16 @@ fn dealloc_map(ptr: *mut libc::c_void, size: libc::size_t) -> Result<(), MemoryE
 #[cfg(target_os = "windows")]
 fn dealloc_map(handle: windows::Win32::Foundation::HANDLE, view: *const libc::c_void) -> Result<(), MemoryError> {
     unsafe {
-        // UnmapViewOfFile returns 0/FALSE when failing
-        let res = windows::Win32::System::Memory::UnmapViewOfFile(view);
-        if !res.as_bool() {
-            if let Err(e) = last_error() {
-                return Err(e);
-            }
+        let res = windows::Win32::System::Memory::UnmapViewOfFile(
+            windows::Win32::System::Memory::MEMORY_MAPPED_VIEW_ADDRESS { Value: view as *mut _ },
+        );
+        if let Err(e) = res {
+            return Err(MemoryError::Deallocation(e.to_string()));
         }
 
-        // CloseHandle returns 0/FALSE when failing
         let res = windows::Win32::Foundation::CloseHandle(handle);
-        if !res.as_bool() {
-            if let Err(e) = last_error() {
-                return Err(e);
-            }
+        if let Err(e) = res {
+            return Err(MemoryError::Deallocation(e.to_string()));
         }
     }
     Ok(())
@@ -503,11 +499,9 @@ fn dealloc_direct(ptr: *mut libc::c_void) -> Result<(), MemoryError> {
 
     unsafe {
         // VirtualFree returns 0/FALSE if the function fails
-        let res = VirtualFree(ptr, 0, windows::Win32::System::Memory::MEM_RELEASE).as_bool();
-        if !res {
-            if let Err(e) = last_error() {
-                return Err(e);
-            }
+        let res = VirtualFree(ptr, 0, windows::Win32::System::Memory::MEM_RELEASE);
+        if let Err(e) = res {
+            return Err(MemoryError::Deallocation(e.to_string()));
         }
     }
     Ok(())
