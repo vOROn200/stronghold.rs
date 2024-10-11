@@ -24,7 +24,7 @@ use stronghold_utils::random as rand;
 use thiserror::Error as DeriveError;
 use zeroize::Zeroizing;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct ChainInput {
     pub chain: Vec<u32>,
 }

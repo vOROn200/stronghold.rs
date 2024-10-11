@@ -5,21 +5,24 @@ edition = "2021"
 license = "Apache-2.0"
 readme = "README.md"
 description = "Client interface for Stronghold"
-authors = [ "IOTA Stiftung" ]
+authors = ["IOTA Stiftung"]
 homepage = "https://wiki.iota.org/stronghold.rs/getting_started"
 repository = "https://github.com/iotaledger/stronghold.rs"
-keywords = [ "iota", "stronghold", "security" ]
-categories = [ "security" ]
+keywords = ["iota", "stronghold", "security"]
+categories = ["security"]
 
 [features]
-default = [ "std" ]
-std = [ ]
-insecure = [ ]
+default = ["std"]
+std = []
+insecure = []
 
 [dependencies]
 thiserror = { version = "1.0.30" }
-zeroize = { version = "1.5.7", default-features = false, features = [ "zeroize_derive", "serde" ] }
-serde = { version = "1.0", features = [ "derive" ] }
+zeroize = { version = "1.5.7", default-features = false, features = [
+  "zeroize_derive",
+  "serde",
+] }
+serde = { version = "1.0", features = ["derive"] }
 iota-crypto = { version = "0.23", default-features = false, features = [
   "aes-gcm",
   "blake2b",
@@ -35,25 +38,25 @@ iota-crypto = { version = "0.23", default-features = false, features = [
   "bip39-jp",
   "slip10",
   "chacha",
-  "x25519"
+  "x25519",
 ] }
 hkdf = { version = "0.12" }
 bincode = { version = "1.3" }
 pin-project = { version = "1.0.10", optional = true }
 futures = { version = "0.3.21", optional = true }
-engine = { package = "stronghold_engine", path = "../engine", version = "2.0.0-rc.0" }
+engine = { package = "stronghold_engine", path = "../engine", version = "2.0.1" }
 stronghold_utils = { package = "stronghold-utils", path = "../utils/", version = "1.0.0" }
 stronghold_derive = { package = "stronghold-derive", path = "../derive", version = "1.0.0" }
 
 [dev-dependencies]
-tokio = { version = "1.15.0", features = [ "full" ] }
-criterion = { version = "0.4", features = [ "async_tokio" ] }
-env_logger = { version = "0.9.0" }
-ctor = { version = "0.1.21" }
+tokio = { version = "1.15.0", features = ["full"] }
+criterion = { version = "0.5.0", features = ["async_tokio"] }
+env_logger = { version = "0.11.5" }
+ctor = { version = "0.2.8" }
 rand = { version = "0.8.4" }
-clap = { version = "3.1.6", features = [ "derive" ] }
+clap = { version = "4.5.20", features = ["derive"] }
 log = { version = "0.4.14" }
-base64 = { version = "0.13.0" }
+base64 = { version = "0.22.1" }
 regex = { version = "1.5.5" }
 libc = { version = "0.2" }
 threadpool = { version = "1.8" }

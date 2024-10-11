@@ -1,15 +1,15 @@
 [package]
 name = "stronghold_native"
 version = "0.1.0"
-edition                 = "2021"
-license                 = "Apache-2.0"
-readme                  = "README.md"
-description             = "Native bindings for Stronghold"
-authors                 = ["IOTA Stiftung"]
-keywords                = [ "iota", "stronghold", "security" ]
-categories              = [ "security" ]
-homepage                = "https://wiki.iota.org/stronghold.rs/getting_started"
-repository              = "https://github.com/iotaledger/stronghold.rs"
+edition = "2021"
+license = "Apache-2.0"
+readme = "README.md"
+description = "Native bindings for Stronghold"
+authors = ["IOTA Stiftung"]
+keywords = ["iota", "stronghold", "security"]
+categories = ["security"]
+homepage = "https://wiki.iota.org/stronghold.rs/getting_started"
+repository = "https://github.com/iotaledger/stronghold.rs"
 
 [lib]
 name = "stronghold_native"
@@ -18,9 +18,9 @@ bench = false
 
 [dependencies]
 libc = "0.2.2"
-thiserror               = { version = "1.0.30" }
-iota_stronghold         = { package = "iota_stronghold",   path = "../../client/", version = "2.0.0-rc.0"}
-engine                  = { package = "stronghold_engine",  path = "../../engine", version = "2.0.0-rc.0" }
+thiserror = { version = "1.0.30" }
+iota_stronghold = { package = "iota_stronghold", path = "../../client/", version = "2.0.0-rc.0" }
+engine = { package = "stronghold_engine", path = "../../engine", version = "2.0.0-rc.0" }
 iota-crypto = { version = "0.23", default-features = false, features = [
   "aes-gcm",
   "aes-kw",
@@ -33,8 +33,8 @@ iota-crypto = { version = "0.23", default-features = false, features = [
   "bip44",
   "slip10",
   "chacha",
-  "x25519"
+  "x25519",
 ] }
-env_logger = { version = "0.9.0" }
+env_logger = { version = "0.11.5" }
 log = { version = "0.4.14" }
 zeroize = { version = "1.5.7", default-features = false }
